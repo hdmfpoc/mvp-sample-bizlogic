@@ -1,0 +1,311 @@
+openapi: 3.0.1
+info:
+  title: MVP Sample bizlogic
+  description: MVP Sample bizlogic API
+  contact:
+    email: happycloudpak@google.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:3000'
+  - url: 'http://localhost:8888/api/products'
+tags:
+  - name: Login
+    description: Login
+  - name: Product
+    description: 상품정보 서비스
+  - name: Transaction
+    description: 거래정보 서비스
+paths:
+  /api/auth/login:
+    post:
+      tags:
+        - Login
+      summary: 인증 토큰을 얻기 위한 Login API
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:         
+                  type: string
+                password:    
+                  type: string
+      responses:
+        200:
+          description: 인증 결과
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ret_auth'
+
+  /count:
+    get:
+      tags:
+        - Product
+      summary: Return total product data count
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: 상품 data count
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retcount'
+                
+  /entries:
+    get:
+      tags:
+        - Product
+      summary: 요청된 데이터 목록 리턴
+      security:
+        - ApiKeyAuth: []      
+      parameters:
+        - name: offset
+          in: query
+          description: 몇번째 데이터부터 리턴? (0부터 시작)
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: 몇개의 데이터를 리턴?
+          required: true
+          schema:
+            type: string
+        - name: order[0]
+          in: query
+          description: 정렬column명
+          required: true
+          schema:
+            type: string           
+        - name: order[1]
+          in: query
+          description: 정렬방식-ASC / DESC
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 데이터 리스트
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/retlist'
+
+  /insert:
+    post:
+      tags:
+        - Product
+      summary: 새로운 상품데이터 등록
+      security:
+        - ApiKeyAuth: []          
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product_formdata'
+      responses:
+        200:
+          description: 등록결과
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retdata'
+
+  /detail:
+    get:
+      tags:
+        - Product
+      summary: 요청된 제품정보 리턴
+      security:
+        - ApiKeyAuth: []      
+      parameters:
+        - name: prod_id
+          in: query
+          description: 일련번호
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 제품정보
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product_entry'
+
+  /edit:
+    post:
+      tags:
+        - Product
+      summary: 상품데이터 수정
+      security:
+        - ApiKeyAuth: []          
+      parameters:
+        - name: prod_id
+          in: query
+          description: 일련번호
+          required: true
+          schema:
+            type: string        
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product_formdata'
+      responses:
+        200:
+          description: 수정결과
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retdata'
+
+  /delete:
+    get:
+      tags:
+        - Product
+      summary: 요청된 제품정보 삭제
+      security:
+        - ApiKeyAuth: []      
+      parameters:
+        - name: prod_id
+          in: query
+          description: 일련번호
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 삭제결과
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/retdata'
+                
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-access-token
+  schemas:
+    ret_auth:
+      type: object
+      properties:
+       success:
+         type: boolean
+       message:
+         type: string
+       errors:
+         type: string
+       data:
+         type: string      
+      
+    retcount:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: 성공/실패여부
+          example: true
+        msg:
+          type: string
+          description: 리턴 메시지
+          example: success
+        value:
+          type: string
+          description: 리턴값
+          example: 100
+          
+    retdata:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: 성공/실패여부
+          example: true
+        msg:
+          type: string
+          description: 리턴 메시지
+          example: success
+        value:
+          type: string
+          description: 리턴값
+    retlist:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: 성공/실패여부
+          example: true
+        msg:
+          type: string
+          description: 리턴 메시지
+          example: success
+        value:
+          type: array
+          description: 리턴값
+          items:
+            $ref: '#/components/schemas/product_entry'
+    product_entry:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 일련번호
+          example: 1
+        prod_name:
+          type: string
+          description: 제품명
+          example: americano
+        prod_no:
+          type: string
+          description: 제품번호
+          example: 1223
+        prod_section:
+          type: string
+          description: 제품분류
+          example: coffee
+        author_id:
+          type: string
+          description: 등록자 userid
+          example: user01
+        author_name:
+          type: string
+          description: 등록자 이름
+          example: Ocean lee
+
+    product_formdata:
+      type: object
+      properties:
+        prod_name:
+          type: string
+          description: 제품명
+          example: americano
+        prod_no:
+          type: string
+          description: 제품번호
+          example: 1234
+        prod_section:
+          type: string
+          description: 제품분류
+          example: coffee
+        author_id:
+          type: string
+          description: 등록자 userid
+          example: 213482
+        author_name:
+          type: string
+          description: 등록자 이름
+          example: Ocean lee

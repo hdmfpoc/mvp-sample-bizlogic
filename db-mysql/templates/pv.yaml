@@ -1,0 +1,13 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ include "db-mysql.fullname" . }}
+spec:
+  capacity:
+    storage: {{ .Values.volume.capacity }}
+  accessModes: 
+    - {{ .Values.volume.accessMode }}
+  persistentVolumeReclaimPolicy: {{ .Values.volume.persistentVolumeReclaimPolicy }}
+  nfs:
+    server: {{ .Values.volume.server }}
+    path: {{ .Values.volume.path }}

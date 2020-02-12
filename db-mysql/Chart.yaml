@@ -1,0 +1,18 @@
+apiVersion: v1
+appVersion: latest
+description: MySQL chart for bbs
+engine: gotpl
+icon: https://d36jcksde1wxzq.cloudfront.net/saas-mega/blueFingerprint.png
+keywords:
+- mvp
+- mysql
+maintainers:
+- email: hiondal@gmail.com
+  name: HaeKyung Lee
+- email: happycloudpak@gmail.com
+  name: HappyCloudPak
+name: db-mysql
+sources:
+- https://github.com/happycloudpak/helm-charts/tree/master/stable
+tillerVersion: '>2.0.0'
+version: 1.0.0

@@ -5,7 +5,10 @@ metadata:
 data:
   #DB_HOST: 169.56.115.153
   #DB_PORT: "32767"
-  DB_HOST: mysql-bnk
+  DB_HOST: mysql-bizlogic-db-mysql
   DB_PORT: "3306"
   DB_NAME: mvp
   PORT: "8888"
+  AUTH_API_URI: http://login.169.56.88.115.nip.io
+  API_PRODUCT_URI: http://biz-logic.169.56.88.115.nip.io/api/products
+

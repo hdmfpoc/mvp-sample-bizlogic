@@ -61,6 +61,8 @@ paths:
                   type: string
                 password:
                   type: string
+                passwordConfirmation:
+                  type: string
       responses:
         200:
           description: 등록결과

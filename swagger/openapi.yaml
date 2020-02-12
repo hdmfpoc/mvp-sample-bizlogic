@@ -42,6 +42,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ret_auth'
+
   /api/users:
     post:
       tags:

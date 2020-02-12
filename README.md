@@ -42,8 +42,10 @@ $ helm delete mysql-bizlogic
 ### bizlogic microservice 배포
 $ cd ~/work/mvp-sample-bizlogic/deploy   
 $ vi ingress.yaml   
-host정보를 수정합니다.     
+- host정보를 수정합니다.     
 ICP에서는 kubectl get nodes -o wide로 proxy node의 ip를 확인한후, 그 ip로 지정   
+- apiVersion을 수정: ICP는 extensions/v1beta1, vanilla k8s는 networking.k8s.io/v1beta1   
+
 $ vi config.yaml
 아래 ingress 주소를 변경합니다.   
 

@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "db-mysql.fullname" . }}
 spec:
+  storageClassName: nfs-standard
   accessModes:
   - {{ .Values.volume.accessMode }}
   resources:

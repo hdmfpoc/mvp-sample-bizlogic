@@ -13,7 +13,7 @@ spec:
           - path: /
             pathType: Prefix 
             backend:
-              service
+              service:
                 name: mvp-sample-bizlogic
                 port: 
                   number: 8888

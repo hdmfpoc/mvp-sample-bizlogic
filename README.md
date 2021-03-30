@@ -1,6 +1,5 @@
 # mvp sample bizlogic
-인증서비스입니다.   
-
+backend service sample입니다.   
 아래와 같이 cluster에 배포하십시오.   
 
 
@@ -107,5 +106,5 @@ $ kubectl get po
 $ kubectl get ing
 ```
 http://{ingress url}/api-docs으로 접근합니다.   
-<img src="./img/2021-03-30-13-29-01.png" width=50% height=50%/>
+<img src="./img/2021-03-30-13-29-01.png" width=70% height=70%/>
 

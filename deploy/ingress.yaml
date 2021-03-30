@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ing-bizlogic
@@ -7,10 +7,13 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-    - host: biz-logic.169.56.88.115.nip.io
+    - host: hklee.biz-logic.169.56.84.35.nip.io
       http:
         paths:
           - path: /
+            pathType: Prefix 
             backend:
-              serviceName: mvp-sample-bizlogic
-              servicePort: 8888
+              service
+                name: mvp-sample-bizlogic
+                port: 
+                  number: 8888

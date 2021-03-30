@@ -1,3 +1,4 @@
+{{- if and .Values.volume.enabled (not .Values.volume.dynamic) }}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -11,3 +12,4 @@ spec:
   nfs:
     server: {{ .Values.volume.server }}
     path: {{ .Values.volume.path }}
+{{- end }}

@@ -26,16 +26,17 @@ ingress:
   enabled: false
 
 volume:
-  server: 169.56.88.117
-  path: /data/nfs/mysql-bizlogic
   capacity: 10Gi
   accessMode: ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  dynamic: true 
+  #server: 169.56.88.117
+  #path: /data/nfs/mysql-bizlogic
 
 resources:
   limits:
     cpu: 1024m
     memory: 1024Mi
   requests:
-    cpu: 512m
-    memory: 512Mi
+    cpu: 100m
+    memory: 100Mi

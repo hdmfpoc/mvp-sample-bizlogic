@@ -17,61 +17,61 @@ spec:
     spec:
       containers:
         - name: mvp-sample-bizlogic
-          image: bnkpoc/mvp-sample-bizlogic:1.0.0
+          image: happykube/mvp-sample-bizlogic:1.0.0
           imagePullPolicy: Always
           env:
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: secret-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: JWT_SECRET
             - name: DB_ID
               valueFrom:
                 secretKeyRef:
-                  name: secret-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: DB_ID
             - name: DB_PW
               valueFrom:
                 secretKeyRef:
-                  name: secret-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: DB_PW
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: DB_HOST
             - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: DB_PORT
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: DB_NAME
             - name: PORT
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: PORT
             - name: AUTH_API_URI
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: AUTH_API_URI
             - name: API_PRODUCT_URI
               valueFrom:
                 configMapKeyRef:
-                  name: config-mvp-sample-bizlogic
+                  name: mvp-sample-bizlogic
                   key: API_PRODUCT_URI
           ports:
             - name: port1
               containerPort: 8081
           resources:
             requests:
-              cpu: 500m
-              memory: 1024Mi
+              cpu: 100m
+              memory: 100Mi
             limits:
               cpu: 1000m
               memory: 2048Mi

@@ -9,6 +9,6 @@ data:
   DB_PORT: "3306"
   DB_NAME: mvp
   PORT: "8888"
-  AUTH_API_URI: http://hklee.login.169.56.84.35.nip.io
-  API_PRODUCT_URI: http://hklee.biz-logic.169.56.84.35.nip.io/api/products
+  AUTH_API_URI: http://login-api:3000
+  API_PRODUCT_URI: http://mvp-sample-bizlogic:8888/api/products
 

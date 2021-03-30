@@ -108,7 +108,7 @@ paths:
             type: string
         - name: order[0]
           in: query
-          description: 정렬column명
+          description: 정렬column명(id, prod_name, prod_no, author_id, author_name)
           required: true
           schema:
             type: string           

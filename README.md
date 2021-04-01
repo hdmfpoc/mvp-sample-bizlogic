@@ -6,13 +6,14 @@ backend service sample입니다.
 # 사전준비
 - k8s cluster에 연결된 PC나 VM에 접근하십시오. 
 - NFS Dynamic provisiong을 사용하려면, [NFS설치와 Dynamic provisiong설정](https://happycloud-lee.tistory.com/178?category=832243)을 참조하십시오. 
+- [run-cicd 파이프라인](https://happycloud-lee.tistory.com/195?category=832250) 다운로드 
+```
+$ cd ~
+$ git clone https://github.com/happyspringcloud/run-cicd.git
+```
 - namespace변수를 만듭니다. 아래 예 참조하여 적절히 변경하세요. 
 ```
 $ export NS=mvp-sample
-```
-- container image가 저장될 [Docker image registry](https://hub.docker.com)의 Organization변수를 생성합니다. 아래 예 참조하여 적절히 변경하세요. 
-```
-$ export IMGORG=happykube
 ```
 
 # git clone   
@@ -58,39 +59,15 @@ $ kubectl get pod
 $ helm delete mysql-bizlogic   
 ```
 
-# mvp-sample-bizlogic 컨테이너 이미지 만들기
-- clone한 디렉토리로 이동 
-```
-$ cd ~/work/mvp-sample-bizlogic 
-```
-- Build container image 
-```
-$ docker build -f deploy/Dockerfile -t ${IMGORG}/mvp-sample-bizlogic:1.0.0 .
-```
-
-- Push image 
-```
-$ docker login 
-
-$ docker push ${IMGORG}/mvp-sample-bizlogic:1.0.0
-```
-
 # mvp-sample-bizlogic microservice 배포
-- deploy/ingress.yaml의 spec.rules.host수정
-```
-$ cd ~/work/mvp-sample-bizlogic/deploy   
-$ vi ingress.yaml  
+- cicd디렉토리 하위의 cicd-common.properties, cicd-dev.properties, cicd-prod.properties파일 수정 
 
-- deploy/config.yaml 수정
-아래 예제와 같이 mvp-sample-login과 mvp-sample-bizlogic의 ingress url로 수정합니다. 
+- run-cicd 실행하고, 값을 적절히 입력 
 ```
-  AUTH_API_URI: http://hklee.login.169.56.84.35.nip.io
-  API_PRODUCT_URI: http://hklee.biz-logic.169.56.84.35.nip.io/api/products
+$ cd ~/work/mvp-sample-bizlogic
+$ run-cicd
 ```
 
-
-$ kubectl apply -f . 
-```
 - PVC바인딩이 되어 있는지 확인
 ```
 $ kubectl get pvc

@@ -29,7 +29,7 @@ node {
     stage(stageName) {
         echo "**** START : " + stageName
         
-        git url: "https://github.com/happykbfg/mvp-sample-login.git", branch: "main"
+        git url: "https://github.com/happykbfg/mvp-sample-bizlogic.git", branch: "main"
         // git url: "https://github.com/devJacob01/springcloud.git", branch: "master", credentialsId: "auth_gitlab"	
     }
 

@@ -1,0 +1,89 @@
+#VERSION:1.2
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mvp-sample-bizlogic
+  namespace: user30
+  labels:
+    app: mvp-sample-bizlogic
+spec:
+  serviceName: mvp-sample-bizlogic
+  
+  selector:
+    matchLabels:
+      app: mvp-sample-bizlogic
+  replicas: 1
+  template:
+    metadata:
+      name: mvp-sample-bizlogic
+      labels:
+        app: mvp-sample-bizlogic
+    spec:
+      serviceAccountName: default
+      containers:
+      - name: mvp-sample-bizlogic
+        image: docker.io/happykube/mvp-sample-bizlogic:0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_PORT
+          value: "8888" 
+        - name: PROFILE
+          value: dev
+        envFrom:
+        - configMapRef:
+            name: "mvp-sample-bizlogic-cm"        
+        - secretRef:
+            name: "mvp-sample-bizlogic-secret"           
+        ports:
+        - name: containerport
+          containerPort: 8888
+        resources:
+          requests:
+            cpu: 128m
+            memory: 128Mi
+          limits:
+            cpu: 1024m
+            memory: 1024Mi
+        
+          
+            
+            
+          
+          
+          
+          
+          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvp-sample-bizlogic
+  namespace: user30  
+spec:
+  type: ClusterIP
+  selector:
+    app: mvp-sample-bizlogic
+  ports:
+  - name: port1
+    port: 8888
+    targetPort: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: mvp-sample-bizlogic
+  namespace: user30  
+spec:
+  rules:
+  - host: user30.mvp-sample-bizlogic.169.56.174.138.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: mvp-sample-bizlogic 
+            port: 
+              number: 8888

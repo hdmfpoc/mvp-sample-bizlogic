@@ -22,7 +22,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: mvp-sample-bizlogic
-        image: docker.io/happykube/mvp-sample-bizlogic:0.0.2
+        image: bastion.cmlee.kbstar.local:5005/happykube/mvp-sample-bizlogic:0.0.1
         imagePullPolicy: Always
         env:
         - name: SERVER_PORT
